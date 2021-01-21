@@ -47,5 +47,9 @@ namespace SHTFApp
             }
         }
 
+        private void floatButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AddingItemsPage());
+        }
     }
 }

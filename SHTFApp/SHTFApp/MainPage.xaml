@@ -8,9 +8,9 @@
                      Clicked="AddItems_Clicked"/>
         <ToolbarItem x:Name="EditItems"
                      Text="Edit"/>
-
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
+    <AbsoluteLayout>   
         <ListView x:Name="itemsListView"
                   ItemSelected="ItemsListView_ItemSelected">
             <ListView.ItemTemplate>
@@ -27,5 +27,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+            <ImageButton x:Name="floatButton"
+                     Source="fabGrey.png"
+                     BackgroundColor="Transparent"
+                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds=".95, .95, 80, 80"
+                     Clicked="floatButton_Clicked" />
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
