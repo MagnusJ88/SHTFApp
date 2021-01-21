@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SHTFApp.AddingItemsPage">
+    
+    <StackLayout Margin="20, 20, 20, 0">
+        <Entry x:Name="nameEntry" 
+               Placeholder="Name"/>
+        <Entry x:Name="amountEntry"
+               Placeholder="Amount"
+               Keyboard="Numeric"/>
+        <DatePicker x:Name="expirePicker"
+                    Format="yyyy-MM-dd"/>
+        <Button x:Name="saveButton"
+                Text="Save"
+                Clicked="saveButton_Clicked"/>
+        <Button x:Name="Delete"
+                Text="Delete"
+                Clicked="Delete_Clicked"/>
+
+
+
+    </StackLayout>
+    
+</ContentPage>

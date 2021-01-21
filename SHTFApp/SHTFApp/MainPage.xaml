@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SHTFApp.MainPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="AddItems"
+                     Text="Add"
+                     Clicked="AddItems_Clicked"/>
+        <ToolbarItem x:Name="EditItems"
+                     Text="Edit"/>
+
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ListView x:Name="itemsListView"
+                  ItemSelected="ItemsListView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="Fill">
+                            <Label Text="{Binding Name}"
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding Amount}"/>
+                            <Label Text="{Binding ExpirationDate.Date, StringFormat='{0:yyyy-MM-dd}'}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
