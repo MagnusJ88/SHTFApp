@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SHTFApp.MainPage">
+             x:Class="SHTFApp.MainPage"
+             xmlns:local="clr-namespace:SHTFApp.Classes">
+    <ContentPage.Resources>
+        <local:TextColorConverter x:Key="TextColorConverter"/>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddItems"
                      Text="Add"
@@ -10,29 +14,38 @@
                      Text="Edit"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-    <AbsoluteLayout>   
+    <!--<AbsoluteLayout>-->
         <ListView x:Name="itemsListView"
-                  ItemSelected="ItemsListView_ItemSelected">
+                  ItemSelected="ItemsListView_ItemSelected"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal"
+                        <Frame CornerRadius="5" Margin="2.5" HasShadow="True">
+                            <StackLayout Orientation="Horizontal"
                                      HorizontalOptions="Fill">
                             <Label Text="{Binding Name}"
-                                   FontAttributes="Bold"/>
-                            <Label Text="{Binding Amount}"/>
-                            <Label Text="{Binding ExpirationDate.Date, StringFormat='{0:yyyy-MM-dd}'}"/>
+                                   FontAttributes="Bold"
+                                   FontSize="Small"/>
+                            <Label Text="{Binding Amount}"
+                                   FontSize="Small"/>
+                            <Label Text="{Binding ExpirationDate.Date, StringFormat='{0:yyyy-MM-dd}'}"
+                                   TextColor="{Binding ExpirationDate.Date, Converter={StaticResource TextColorConverter}}"
+                                   FontSize="Small"/>
                         </StackLayout>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-            <ImageButton x:Name="floatButton"
+
+        <!--<ImageButton x:Name="floatButton"
                      Source="fabGrey.png"
                      BackgroundColor="Transparent"
                      AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds=".95, .95, 80, 80"
-                     Clicked="floatButton_Clicked" />
-        </AbsoluteLayout>
+                     Clicked="floatButton_Clicked" />-->
+        <!--</AbsoluteLayout>-->
     </ContentPage.Content>
 </ContentPage>

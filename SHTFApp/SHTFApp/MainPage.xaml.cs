@@ -13,7 +13,7 @@ namespace SHTFApp
 {
     public partial class MainPage : ContentPage
     {
-        private ObservableCollection<Item> Items;
+        private List<Item> Items;
         private Item SelectedItem;
 
         public MainPage()
@@ -27,8 +27,8 @@ namespace SHTFApp
             using (SQLiteConnection connection = new SQLiteConnection(App.DatabaseLocation))
             {
                 connection.CreateTable<Item>();
-                Items = new ObservableCollection<Item>(connection.Table<Item>());
-                itemsListView.ItemsSource = Items;
+                Items = new List<Item>(connection.Table<Item>());
+                itemsListView.ItemsSource = Items.OrderBy(item => item.ExpirationDate.Date);
             }
         }
 

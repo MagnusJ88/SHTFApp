@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Plugin.LocalNotification;
+using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,6 +12,8 @@ namespace SHTFApp
         public App()
         {
             InitializeComponent();
+
+            NotificationCenter.Current.NotificationTapped += LoadPageFromNotification;
 
             MainPage = new NavigationPage(new MainPage());
         }
@@ -33,6 +37,11 @@ namespace SHTFApp
 
         protected override void OnResume()
         {
+        }
+        private void LoadPageFromNotification(NotificationTappedEventArgs e)
+        {
+
+            ((NavigationPage)MainPage).Navigation.PushAsync(new MainPage());
         }
     }
 }
