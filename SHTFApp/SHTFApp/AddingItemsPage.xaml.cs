@@ -11,14 +11,23 @@ using OpenFoodFacts4Net.Json.Data;
 using Newtonsoft.Json.Linq;
 using System.Dynamic;
 using ZXing.Net.Mobile.Forms;
+using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace SHTFApp
 {
+    //TODO: lägg till energy i tabellen
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddingItemsPage : ContentPage
+    public partial class AddingItemsPage : ContentPage, INotifyPropertyChanged
     {
-        ZXingScannerView _zxing;
+        
         Item SelectedItem;
+        public static string _scannedBarcode;
+        public static string ScannedBarcode
+        {
+            get { return _scannedBarcode; }
+            set { _scannedBarcode = value; }
+        }
         public AddingItemsPage()
         {
             InitializeComponent();
@@ -112,40 +121,50 @@ namespace SHTFApp
 
         private void scannerButton_Clicked(object sender, EventArgs e)
         {
-            _zxing = new ZXingScannerView
-            {
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center,
-                HeightRequest = 250,
-                WidthRequest = 250,
-                IsAnalyzing = true,
-                IsScanning = true,
-            };
+            var scanPage = new ScanPage();
+            scanPage.SetBarcode += this.OnBarcodeScanned;
+            Navigation.PushAsync(scanPage);
         }
-
-        private void ZXingScannerView_OnScanResult(ZXing.Result result)
+        public void OnBarcodeScanned(object source, EventArgs e)
+        {
+            if (_scannedBarcode != null)
+            {
+                getNutriments(_scannedBarcode);
+            }
+        }
+        /*private void ZXingScannerView_OnScanResult(ZXing.Result result)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
                 eanEntry.Text = result.Text;
                 getNutriments(result.Text);
-                _zxing.IsScanning = false;
+                //_zxing.IsScanning = false;
             });
-        }
-        private void getNutriments(string barcode)
+        }*/
+        public void getNutriments(string barcode)
         {
             var client = new RestClient($"https://world.openfoodfacts.org/api/v0/product/" + barcode);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             IRestResponse restResponse = client.Execute(request);
-            dynamic newProduct = JsonConvert.DeserializeObject(restResponse.Content);
 
-            int energy = newProduct["product"]["nutriments"]["energy-kcal"];
+            try
+            {
+                dynamic newProduct = JsonConvert.DeserializeObject(restResponse.Content);
 
-            string name = newProduct["product"]["product_name"];
-            nameEntry.Text = name;
-            energyEntry.Text = energy.ToString();
+                int energy = newProduct["product"]["nutriments"]["energy-kcal"];
+
+                string name = newProduct["product"]["product_name"];
+                nameEntry.Text = name;
+                energyEntry.Text = energy.ToString();
+            }
+            catch
+            {
+                DisplayAlert("Not found!", "The product was not found in the database! You have to add it manually", "OK");
+                nameEntry.Focus();
+            }
+
         }
     }
 }

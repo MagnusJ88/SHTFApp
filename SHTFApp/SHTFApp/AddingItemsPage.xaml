@@ -16,7 +16,6 @@
         <Entry x:Name="eanEntry"
                Placeholder="EAN"
                Keyboard="Numeric"/>
-        <zxing:ZXingScannerView IsScanning="false"  OnScanResult="ZXingScannerView_OnScanResult"/>
         <DatePicker x:Name="expirePicker"
                     Format="yyyy-MM-dd"/>
         <Button x:Name="saveButton"
@@ -28,8 +27,6 @@
         <Button x:Name="scannerButton"
                 Text="Scan item"
                 Clicked="scannerButton_Clicked"/>
-
-
 
     </StackLayout>
     
