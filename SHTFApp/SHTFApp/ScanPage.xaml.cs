@@ -10,6 +10,7 @@ namespace SHTFApp
     {
         public delegate void SetBarcodeEventHandler(object source, EventArgs args);
         public event SetBarcodeEventHandler SetBarcode;
+
         public ScanPage()
         {
             InitializeComponent();
@@ -33,7 +34,6 @@ namespace SHTFApp
                 await DisplayAlert("Scan result", result.Text, "OK");
                 OnBarcodeScanned();
                 await Navigation.PopAsync();
-                //TODO: fixa så att den slutar scanna när resultat finns
             });
 
 

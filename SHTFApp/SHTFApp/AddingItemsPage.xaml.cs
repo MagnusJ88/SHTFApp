@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Plugin.LocalNotification;
 using RestSharp;
 using SHTFApp.Classes;
 using SQLite;
@@ -13,15 +12,16 @@ using System.Dynamic;
 using ZXing.Net.Mobile.Forms;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using SHTFApp;
 
 namespace SHTFApp
 {
-    //TODO: lägg till energy i tabellen
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddingItemsPage : ContentPage, INotifyPropertyChanged
     {
-        
+        INotificationManager notificationManager;
         Item SelectedItem;
+
         public static string _scannedBarcode;
         public static string ScannedBarcode
         {
@@ -31,6 +31,13 @@ namespace SHTFApp
         public AddingItemsPage()
         {
             InitializeComponent();
+
+            notificationManager = DependencyService.Get<INotificationManager>();
+            notificationManager.NotificationReceived += (sender, eventArgs) =>
+            {
+                var evtData = (NotificationEventArgs)eventArgs;
+                ShowNotification(evtData.Title, evtData.Message);
+            };
         }
         public AddingItemsPage(Item selectedItem)
         {
@@ -42,6 +49,14 @@ namespace SHTFApp
             amountEntry.Text = SelectedItem.Amount.ToString();
             expirePicker.Date = SelectedItem.ExpirationDate.Date;
 
+           
+            notificationManager = DependencyService.Get<INotificationManager>();
+            notificationManager.NotificationReceived += (sender, eventArgs) =>
+            {
+                var evtData = (NotificationEventArgs)eventArgs;
+                ShowNotification(evtData.Title, evtData.Message);
+            };
+
         }
 
         private void saveButton_Clicked(object sender, EventArgs e)
@@ -52,7 +67,9 @@ namespace SHTFApp
                 {
                     Name = nameEntry.Text.ToUpper(),
                     Amount = Convert.ToDouble(amountEntry.Text),
-                    ExpirationDate = expirePicker.Date
+                    ExpirationDate = expirePicker.Date,
+                    Energy = Int32.Parse(energyEntry.Text)
+                    
                 };
 
                 using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
@@ -63,22 +80,10 @@ namespace SHTFApp
                     AlertMessages(rowsAdded);
                 }
 
-               /* var list = new List<string>
-            {
-                typeof(NotificationPage).FullName
-                
-            };
-                var serializeReturningData = ObjectSerializer.SerializeObject(list);
+                string title = $"Expired items!";
+                string message = $"You have expired items in your inventory";
+                notificationManager.SendNotification(title, message, expirePicker.Date);
 
-                var notification = new NotificationRequest
-                {
-                    NotificationId = 100,
-                    Title = "Detta är title",
-                    Description = "Detta är Description",
-                    ReturningData = serializeReturningData,
-                    //NotifyTime = DateTime.Now.AddSeconds(5) //ändra till utgångsdatum
-                };
-                NotificationCenter.Current.Show(notification);*/
             }
             else
             {
@@ -89,6 +94,7 @@ namespace SHTFApp
                     SelectedItem.Name = nameEntry.Text.ToUpper();
                     SelectedItem.Amount = Convert.ToDouble(amountEntry.Text);
                     SelectedItem.ExpirationDate = expirePicker.Date;
+                    SelectedItem.Energy = Int32.Parse(energyEntry.Text);
 
                     int rowsAdded = conn.Update(SelectedItem);
                     AlertMessages(rowsAdded);
@@ -97,25 +103,25 @@ namespace SHTFApp
             Navigation.PopAsync();
         }
 
+
         private void Delete_Clicked(object sender, EventArgs e)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
+            try
             {
-                conn.CreateTable<Item>();
-                int rowsAdded = conn.Delete(SelectedItem);
-                DisplayAlert("Deleted", "The item has been deleted", "Ok");
+                using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
+                {
+                    //conn.CreateTable<Item>();
+                    int rowsAdded = conn.Delete(SelectedItem);
+                    DisplayAlert("Deleted", "The item has been deleted", "Ok");
+                }
             }
-            Navigation.PopAsync();
-        }
-        private void AlertMessages(int added)
-        {
-            if (added > 0) 
-            { 
-                DisplayAlert("Saved", "The item has been saved", "Ok");
-            }
-            else
+            catch 
             {
-                DisplayAlert("Not Saved", "The item has not been saved", "Ok");
+                DisplayAlert("Error", "Unable to delete item", "Ok");
+            }
+            finally
+            {
+                Navigation.PopAsync();
             }
         }
 
@@ -129,22 +135,38 @@ namespace SHTFApp
         {
             if (_scannedBarcode != null)
             {
+                eanEntry.Text = _scannedBarcode;
                 getNutriments(_scannedBarcode);
             }
         }
-        /*private void ZXingScannerView_OnScanResult(ZXing.Result result)
+        void ShowNotification(string title, string message)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                eanEntry.Text = result.Text;
-                getNutriments(result.Text);
-                //_zxing.IsScanning = false;
+                var msg = new Label()
+                {
+                    Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
+                };
+                stackLayout.Children.Add(msg);
             });
-        }*/
+        }
+        private void AlertMessages(int added)
+        {
+            if (added > 0) 
+            { 
+                DisplayAlert("Saved", "The item has been saved", "Ok");
+            }
+            else
+            {
+                DisplayAlert("Not Saved", "The item has not been saved", "Ok");
+            }
+        }
         public void getNutriments(string barcode)
         {
-            var client = new RestClient($"https://world.openfoodfacts.org/api/v0/product/" + barcode);
-            client.Timeout = -1;
+            var client = new RestClient($"https://world.openfoodfacts.org/api/v0/product/" + barcode)
+            {
+                Timeout = -1
+            };
             var request = new RestRequest(Method.GET);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             IRestResponse restResponse = client.Execute(request);
@@ -164,7 +186,6 @@ namespace SHTFApp
                 DisplayAlert("Not found!", "The product was not found in the database! You have to add it manually", "OK");
                 nameEntry.Focus();
             }
-
         }
     }
 }

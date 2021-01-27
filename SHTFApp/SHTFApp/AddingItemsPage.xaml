@@ -2,32 +2,40 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-             x:Class="SHTFApp.AddingItemsPage">
-    
-    <StackLayout Margin="20, 20, 20, 0">
-        <Entry x:Name="nameEntry" 
-               Placeholder="Name"/>
-        <Entry x:Name="amountEntry"
-               Placeholder="Amount"
-               Keyboard="Numeric"/>
-        <Entry x:Name="energyEntry"
-               Placeholder="Energy (kcal)"
-               Keyboard="Numeric"/>
-        <Entry x:Name="eanEntry"
-               Placeholder="EAN"
-               Keyboard="Numeric"/>
-        <DatePicker x:Name="expirePicker"
-                    Format="yyyy-MM-dd"/>
-        <Button x:Name="saveButton"
-                Text="Save"
-                Clicked="saveButton_Clicked"/>
-        <Button x:Name="Delete"
-                Text="Delete"
-                Clicked="Delete_Clicked"/>
-        <Button x:Name="scannerButton"
-                Text="Scan item"
-                Clicked="scannerButton_Clicked"/>
+             x:Class="SHTFApp.AddingItemsPage"
+             BackgroundColor="{AppThemeBinding Dark=Black, Default=White}">
 
+    <StackLayout x:Name="stackLayout" 
+                Margin="20, 20, 20, 0" 
+                BackgroundColor="{AppThemeBinding Dark=Black, Default=White}">
+    <Entry x:Name="nameEntry" 
+           Placeholder="Name"
+           TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+    <Entry x:Name="amountEntry"
+           Placeholder="Amount"
+           Keyboard="Numeric"
+           TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+    <Entry x:Name="energyEntry"
+           Placeholder="Energy (kcal)"
+           Keyboard="Numeric"
+           TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+    <Entry x:Name="eanEntry"
+           Placeholder="EAN"
+           Keyboard="Numeric"
+           TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+    <DatePicker x:Name="expirePicker"
+                Format="yyyy-MM-dd"
+                Visual="Material"
+                BackgroundColor="{AppThemeBinding Dark=Black, Default=White}"
+                TextColor="{AppThemeBinding Dark=LightGrey, Default=Black}"/>
+    <Button x:Name="saveButton"
+            Text="Save"
+            Clicked="saveButton_Clicked"/>
+    <Button x:Name="Delete"
+            Text="Delete"
+            Clicked="Delete_Clicked"/>
+    <Button x:Name="scannerButton"
+            Text="Scan item"
+            Clicked="scannerButton_Clicked"/>
     </StackLayout>
-    
 </ContentPage>

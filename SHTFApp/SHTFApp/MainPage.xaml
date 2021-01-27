@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct ="http://xamarin.com/schemas/2020/toolkit"
              x:Class="SHTFApp.MainPage"
-             xmlns:local="clr-namespace:SHTFApp.Classes">
+             xmlns:local="clr-namespace:SHTFApp.Classes"
+             BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}">
     <ContentPage.Resources>
         <local:TextColorConverter x:Key="TextColorConverter"/>
     </ContentPage.Resources>
@@ -10,42 +12,38 @@
         <ToolbarItem x:Name="AddItems"
                      Text="Add"
                      Clicked="AddItems_Clicked"/>
-        <ToolbarItem x:Name="EditItems"
-                     Text="Edit"/>
     </ContentPage.ToolbarItems>
-    <ContentPage.Content>
-    <!--<AbsoluteLayout>-->
+    <ContentPage.Content >
         <ListView x:Name="itemsListView"
                   ItemSelected="ItemsListView_ItemSelected"
                   SeparatorVisibility="None"
-                  HasUnevenRows="True">
+                  HasUnevenRows="True"
+                  BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Frame CornerRadius="5" Margin="2.5" HasShadow="True">
+                    <ViewCell >
+                        <Frame CornerRadius="5" Margin="2.5" 
+                               HasShadow="True"
+                               BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}" >
                             <StackLayout Orientation="Horizontal"
-                                     HorizontalOptions="Fill">
-                            <Label Text="{Binding Name}"
-                                   FontAttributes="Bold"
-                                   FontSize="Small"/>
-                            <Label Text="{Binding Amount}"
-                                   FontSize="Small"/>
-                            <Label Text="{Binding ExpirationDate.Date, StringFormat='{0:yyyy-MM-dd}'}"
-                                   TextColor="{Binding ExpirationDate.Date, Converter={StaticResource TextColorConverter}}"
-                                   FontSize="Small"/>
-                        </StackLayout>
+                                         HorizontalOptions="Fill">
+                                <Label Text="{Binding Name}"
+                                       FontAttributes="Bold"
+                                       FontSize="Small"
+                                       TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+                                <Label Text="{Binding Amount}"
+                                       FontSize="Small"
+                                       TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+                                <Label Text="{Binding ExpirationDate.Date, 
+                                       StringFormat='{0:yyyy-MM-dd}'}"
+                                       TextColor="{Binding ExpirationDate.Date, 
+                                           Converter={StaticResource TextColorConverter}}"
+                                       FontSize="Small"/>
+                            </StackLayout>
                         </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-        <!--<ImageButton x:Name="floatButton"
-                     Source="fabGrey.png"
-                     BackgroundColor="Transparent"
-                     AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds=".95, .95, 80, 80"
-                     Clicked="floatButton_Clicked" />-->
-        <!--</AbsoluteLayout>-->
     </ContentPage.Content>
 </ContentPage>

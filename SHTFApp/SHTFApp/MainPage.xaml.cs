@@ -23,7 +23,6 @@ namespace SHTFApp
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
             using (SQLiteConnection connection = new SQLiteConnection(App.DatabaseLocation))
             {
                 connection.CreateTable<Item>();

@@ -18,7 +18,7 @@ namespace SHTFApp.Classes
             }
             else
             {
-                return Color.Black;
+                return Color.Green;
             }
         }
 

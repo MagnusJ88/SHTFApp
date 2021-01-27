@@ -11,7 +11,7 @@
                                     HeightRequest="200"
                                     IsScanning="True"
                                     />
-            <zxing:ZXingDefaultOverlay TopText="Align the barcode within the frame" BottomText="Bottom text"/>
+            <zxing:ZXingDefaultOverlay TopText="Align the barcode within the frame"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
