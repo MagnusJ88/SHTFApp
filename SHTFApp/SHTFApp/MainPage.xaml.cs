@@ -45,5 +45,10 @@ namespace SHTFApp
                 Navigation.PushAsync(new AddingItemsPage(SelectedItem));
             }
         }
+
+        private void summary_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new calculate());
+        }
     }
 }

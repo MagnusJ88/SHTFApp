@@ -4,7 +4,8 @@
              xmlns:xct ="http://xamarin.com/schemas/2020/toolkit"
              x:Class="SHTFApp.MainPage"
              xmlns:local="clr-namespace:SHTFApp.Classes"
-             BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}">
+             BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}"
+             Title="Your inventory">
     <ContentPage.Resources>
         <local:TextColorConverter x:Key="TextColorConverter"/>
     </ContentPage.Resources>
@@ -12,6 +13,7 @@
         <ToolbarItem x:Name="AddItems"
                      Text="Add"
                      Clicked="AddItems_Clicked"/>
+        <ToolbarItem x:Name="summary" Text="Summary" Clicked="summary_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content >
         <ListView x:Name="itemsListView"
@@ -27,18 +29,26 @@
                                BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}" >
                             <StackLayout Orientation="Horizontal"
                                          HorizontalOptions="Fill">
+                                <Label Text="{Binding Amount}"
+                                       FontSize="Small"
+                                       TextColor="{AppThemeBinding Dark=White, Default=Black}"
+                                       HorizontalOptions="StartAndExpand"
+                                       MinimumWidthRequest="100"
+                                       />
                                 <Label Text="{Binding Name}"
                                        FontAttributes="Bold"
                                        FontSize="Small"
-                                       TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
-                                <Label Text="{Binding Amount}"
-                                       FontSize="Small"
-                                       TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+                                       TextColor="{AppThemeBinding Dark=White, Default=Black}"
+                                       LineBreakMode="TailTruncation"
+                                       HorizontalOptions="CenterAndExpand"
+                                       />
                                 <Label Text="{Binding ExpirationDate.Date, 
                                        StringFormat='{0:yyyy-MM-dd}'}"
                                        TextColor="{Binding ExpirationDate.Date, 
                                            Converter={StaticResource TextColorConverter}}"
-                                       FontSize="Small"/>
+                                       FontSize="Small"
+                                       HorizontalOptions="EndAndExpand"
+                                       MinimumWidthRequest="100"/>
                             </StackLayout>
                         </Frame>
                     </ViewCell>

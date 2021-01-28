@@ -13,6 +13,7 @@ namespace SHTFApp.Classes
         public string Name { get; set; }
         public double Amount { get; set; }
         public int Energy { get; set; }
+        public int Quantity { get; set; }
         public DateTime ExpirationDate { get; set; }
     }
 }

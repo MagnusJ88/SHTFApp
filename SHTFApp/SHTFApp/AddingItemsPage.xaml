@@ -3,39 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              x:Class="SHTFApp.AddingItemsPage"
-             BackgroundColor="{AppThemeBinding Dark=Black, Default=White}">
+             BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}">
 
     <StackLayout x:Name="stackLayout" 
                 Margin="20, 20, 20, 0" 
-                BackgroundColor="{AppThemeBinding Dark=Black, Default=White}">
-    <Entry x:Name="nameEntry" 
-           Placeholder="Name"
-           TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
-    <Entry x:Name="amountEntry"
-           Placeholder="Amount"
-           Keyboard="Numeric"
-           TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
-    <Entry x:Name="energyEntry"
-           Placeholder="Energy (kcal)"
-           Keyboard="Numeric"
-           TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
-    <Entry x:Name="eanEntry"
-           Placeholder="EAN"
-           Keyboard="Numeric"
-           TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
-    <DatePicker x:Name="expirePicker"
+                BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Entry x:Name="nameEntry" 
+               Placeholder="Name"
+               TextColor="{AppThemeBinding Dark=White, Default=Black}"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"/>
+            <ImageButton x:Name="ImageButtonScan"
+                         WidthRequest="25"
+                         Source="barcodeScanner.png"
+                         BorderColor="Transparent"
+                         BackgroundColor="Transparent"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         Grid.ColumnSpan="1"
+                         Padding="1"
+                         HorizontalOptions="End"
+                         Clicked="ImageButtonScan_Clicked"/>
+        </Grid>
+        <Entry x:Name="amountEntry"
+               Placeholder="Amount"
+               Keyboard="Numeric"
+               TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+        <Entry x:Name="energyEntry"
+               Placeholder="Energy (kcal)"
+               Keyboard="Numeric"
+               TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+        <Entry x:Name="quantityEntry"
+               Placeholder="Quantity (g/ml)"
+               Keyboard="Numeric"
+               TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+        <Entry x:Name="eanEntry"
+               Placeholder="EAN"
+               Keyboard="Numeric"
+               TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+        <DatePicker x:Name="expirePicker"
                 Format="yyyy-MM-dd"
                 Visual="Material"
                 BackgroundColor="{AppThemeBinding Dark=Black, Default=White}"
-                TextColor="{AppThemeBinding Dark=LightGrey, Default=Black}"/>
-    <Button x:Name="saveButton"
-            Text="Save"
-            Clicked="saveButton_Clicked"/>
-    <Button x:Name="Delete"
-            Text="Delete"
-            Clicked="Delete_Clicked"/>
-    <Button x:Name="scannerButton"
-            Text="Scan item"
-            Clicked="scannerButton_Clicked"/>
+                TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
+        <Button x:Name="saveButton"
+                Text="Save"
+                Clicked="saveButton_Clicked"/>
+        <Button x:Name="Delete"
+                Text="Delete"
+                Clicked="Delete_Clicked"/>
+        <Button x:Name="scannerButton"
+                Text="Scan item"
+                Clicked="scannerButton_Clicked"/>
     </StackLayout>
 </ContentPage>

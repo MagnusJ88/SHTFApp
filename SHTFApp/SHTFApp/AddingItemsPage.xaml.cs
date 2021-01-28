@@ -48,6 +48,8 @@ namespace SHTFApp
             nameEntry.Text = SelectedItem.Name;
             amountEntry.Text = SelectedItem.Amount.ToString();
             expirePicker.Date = SelectedItem.ExpirationDate.Date;
+            energyEntry.Text = selectedItem.Energy.ToString();
+            quantityEntry.Text = selectedItem.Quantity.ToString();
 
            
             notificationManager = DependencyService.Get<INotificationManager>();
@@ -68,7 +70,8 @@ namespace SHTFApp
                     Name = nameEntry.Text.ToUpper(),
                     Amount = Convert.ToDouble(amountEntry.Text),
                     ExpirationDate = expirePicker.Date,
-                    Energy = Int32.Parse(energyEntry.Text)
+                    Energy = Convert.ToInt32(energyEntry.Text),
+                    Quantity = Convert.ToInt32(quantityEntry.Text)
                     
                 };
 
@@ -94,7 +97,8 @@ namespace SHTFApp
                     SelectedItem.Name = nameEntry.Text.ToUpper();
                     SelectedItem.Amount = Convert.ToDouble(amountEntry.Text);
                     SelectedItem.ExpirationDate = expirePicker.Date;
-                    SelectedItem.Energy = Int32.Parse(energyEntry.Text);
+                    SelectedItem.Energy = Convert.ToInt32(energyEntry.Text);
+                    SelectedItem.Quantity = Convert.ToInt32(quantityEntry.Text);
 
                     int rowsAdded = conn.Update(SelectedItem);
                     AlertMessages(rowsAdded);
@@ -176,8 +180,10 @@ namespace SHTFApp
                 dynamic newProduct = JsonConvert.DeserializeObject(restResponse.Content);
 
                 int energy = newProduct["product"]["nutriments"]["energy-kcal"];
-
+                int quantity = newProduct["product"]["product_quantity"];
                 string name = newProduct["product"]["product_name"];
+
+                quantityEntry.Text = quantity.ToString();
                 nameEntry.Text = name;
                 energyEntry.Text = energy.ToString();
             }
@@ -186,6 +192,13 @@ namespace SHTFApp
                 DisplayAlert("Not found!", "The product was not found in the database! You have to add it manually", "OK");
                 nameEntry.Focus();
             }
+        }
+
+        private void ImageButtonScan_Clicked(object sender, EventArgs e)
+        {
+            var scanPage = new ScanPage();
+            scanPage.SetBarcode += this.OnBarcodeScanned;
+            Navigation.PushAsync(scanPage);
         }
     }
 }
