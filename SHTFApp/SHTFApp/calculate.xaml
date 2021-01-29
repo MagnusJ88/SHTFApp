@@ -1,40 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SHTFApp.calculate"
+             x:Class="SHTFApp.Calculate"
              BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}">
     <ContentPage.Content BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}">
         <StackLayout Orientation="Vertical"
                     x:Name="stackLayout" 
                     Margin="20, 20, 20, 0" 
                     BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}">
-            <Grid>
+            <Grid HorizontalOptions="FillAndExpand">
+
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
+                
                 <Label x:Name="adultValueLabel" 
-                        Text="Adults: " 
-                        Grid.Row="0"  
-                        Grid.Column="0" 
-                        Grid.ColumnSpan="2"
-                        VerticalTextAlignment="Center"
-                        Padding="5, 0, 0, 0"/>
+                       Text="Adults: " 
+                       Grid.Row="0"  
+                       Grid.Column="0" 
+                       Grid.ColumnSpan="2"
+                       VerticalTextAlignment="Center"
+                       Padding="5, 0, 0, 0"/>
                 <Stepper x:Name="adultStepper" 
-                         ValueChanged="adultStepper_ValueChanged" 
-                         Grid.Row="1"/>
+                       ValueChanged="AdultStepper_ValueChanged" 
+                       Grid.Row="1"
+                       HorizontalOptions="CenterAndExpand"
+                       MinimumWidthRequest="600"/>
+                
                 <Label x:Name="childValueLabel"  
                        Text="Children: " 
                        Grid.Row="0" 
                        Grid.Column="1" 
                        Padding="5, 0, 0, 0"/>
                 <Stepper x:Name="childStepper"
-                        ValueChanged="childStepper_ValueChanged"
-                        Grid.Column="1"
-                        Grid.Row="1"/>
-                <Label Text="Avg. kcal/day:"
+                       ValueChanged="ChildStepper_ValueChanged"
+                       Grid.Column="1"
+                       Grid.Row="1"/>
+
+                <Label Text="Average calories per day: "
+                       LineBreakMode="WordWrap"
                        Grid.Row="2"
                        Grid.Column="0"
                        Padding="3, -3, 0, 0"/>
@@ -44,16 +51,18 @@
                        Grid.Row="2"
                        Grid.Column="0"/>
                 <ImageButton x:Name="iconButton"
-                             WidthRequest="17"
-                             Background="Transparent"
-                             BackgroundColor="Transparent"
-                             Source="iconTransparent.png"
-                             Padding="0, 0, 4, 0"
-                             Grid.Row="2"
-                             Grid.Column="0"
-                             HorizontalOptions="End"
-                             Clicked="iconButton_Clicked"/>
-                <Label Text="Avg. kcal/day:"
+                       WidthRequest="22"
+                       Background="Transparent"
+                       BackgroundColor="Transparent"
+                       Source="iconTransparent.png"
+                       Padding="0, 0, 4, 0"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       HorizontalOptions="End"
+                       Clicked="IconButton_Clicked"/>
+                
+                <Label Text="Average calories per day: "
+                       LineBreakMode="WordWrap"
                        Grid.Row="2"
                        Grid.Column="1"
                        Padding="3, -3, 0, 0"/>
@@ -62,22 +71,24 @@
                        Grid.Row="2"
                        Grid.Column="1"/>
                 <ImageButton x:Name="iconButton2"
-                             WidthRequest="17"
-                             Background="Transparent"
-                             BackgroundColor="Transparent"
-                             Source="iconTransparent.png"
-                             Padding="0, 0, 4, 0"
-                             Grid.Row="2"
-                             Grid.Column="1"
-                             HorizontalOptions="End"
-                             Clicked="iconButton_Clicked"/>
+                       WidthRequest="22"
+                       Background="Transparent"
+                       BackgroundColor="Transparent"
+                       Source="iconTransparent.png"
+                       Padding="0, 0, 4, 0"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       HorizontalOptions="End"
+                       Clicked="IconButton_Clicked"/>
             </Grid>
+
             <Label x:Name="totalCaloriesSpent"
-                        VerticalTextAlignment="Center"
-                        Text="Tot. kcal spent/day: "/>
+                   VerticalTextAlignment="Center"
+                   LineBreakMode="WordWrap"
+                   Text="Total calories spent per day: "/>
             <Button x:Name="calculateButton"
-                        Text="Calculate!"
-                        Clicked="calculateButton_Clicked"/>
+                   Text="Calculate"
+                   Clicked="CalculateButton_Clicked"/>
             <Label x:Name="summaryLabel"
                    LineBreakMode="WordWrap"/>
         </StackLayout>

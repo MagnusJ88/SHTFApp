@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="SHTFApp.AddingItemsPage"
              BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}">
 
@@ -15,32 +16,31 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+           
             <Entry x:Name="nameEntry" 
-               Placeholder="Name"
-               TextColor="{AppThemeBinding Dark=White, Default=Black}"
+                   Placeholder="Name"
+                   TextColor="{AppThemeBinding Dark=White, Default=Black}"
                    Grid.Row="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"/>
             <ImageButton x:Name="ImageButtonScan"
-                         WidthRequest="25"
-                         Source="barcodeScanner.png"
-                         BorderColor="Transparent"
-                         BackgroundColor="Transparent"
-                         Grid.Row="0"
-                         Grid.Column="1"
-                         Grid.ColumnSpan="1"
-                         Padding="1"
-                         HorizontalOptions="End"
-                         Clicked="ImageButtonScan_Clicked"
-                         />
+                   WidthRequest="40"
+                   Source="barcodeScanner.png"
+                   BorderColor="Transparent"
+                   BackgroundColor="Transparent"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="1"
+                   HorizontalOptions="End"
+                   Clicked="ImageButtonScan_Clicked"/>
+            
             <Entry x:Name="amountEntry"
                    Placeholder="Amount"
                    Keyboard="Numeric"
                    TextColor="{AppThemeBinding Dark=White, Default=Black}"
                    Grid.Row="1" 
                    Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   />
+                   Grid.ColumnSpan="2"/>
             <Label Text="Amount"
                    FontAttributes="Bold"
                    Grid.Row="1"
@@ -48,16 +48,15 @@
                    HorizontalOptions="End"
                    VerticalOptions="Center"
                    Grid.ColumnSpan="1"
-                   Padding="4"
-                   />
+                   Padding="4"/>
+            
             <Entry x:Name="energyEntry"
                    Placeholder="Energy (kcal)"
                    Keyboard="Numeric"
                    TextColor="{AppThemeBinding Dark=White, Default=Black}" 
                    Grid.Row="2"
                    Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   />
+                   Grid.ColumnSpan="2"/>
             <Label Text="Energy (kcal)"
                    FontAttributes="Bold"
                    Grid.Row="2"
@@ -65,8 +64,8 @@
                    HorizontalOptions="End"
                    VerticalOptions="Center"
                    Grid.ColumnSpan="1"
-                   Padding="4"
-                   />
+                   Padding="4"/>
+            
             <Entry x:Name="quantityEntry"
                    Placeholder="Quantity (g/ml)"
                    Keyboard="Numeric"
@@ -81,17 +80,16 @@
                    HorizontalOptions="End"
                    VerticalOptions="Center"
                    Grid.ColumnSpan="1"
-                   Padding="4"
-                   />
+                   Padding="4"/>
+            
             <DatePicker x:Name="expirePicker"
-                    Format="yyyy-MM-dd"
-                    Visual="Material"
-                    BackgroundColor="{AppThemeBinding Dark=Black, Default=White}"
-                    TextColor="{AppThemeBinding Dark=White, Default=Black}"
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                   />
+                   Format="yyyy-MM-dd"
+                   Visual="Material"
+                   BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}"
+                   TextColor="{AppThemeBinding Dark=White, Default=Black}"
+                   Grid.Row="4"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"/>
             <Label Text="Expiry Date"
                    FontAttributes="Bold"
                    Grid.Row="4"
@@ -99,23 +97,31 @@
                    HorizontalOptions="End"
                    VerticalOptions="End"
                    Grid.ColumnSpan="1"
-                   Padding="4"
-                   
-                   />
-
+                   Padding="4"/>
+            
+            <Entry x:Name="eanEntry"
+                   Placeholder="EAN"
+                   Keyboard="Numeric"
+                   TextColor="{AppThemeBinding Dark=White, Default=Black}"
+                   Grid.Row="5"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="1"/>
+            
+            <Button x:Name="searchButton"
+                   Text="Search"
+                   Clicked="SearchButton_Clicked"
+                   Grid.Row="5"
+                   Grid.Column="1"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="80" 
+                   HeightRequest="50"/>
         </Grid>
-        <Entry x:Name="eanEntry"
-               Placeholder="EAN"
-               Keyboard="Numeric"
-               TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
         <Button x:Name="saveButton"
                 Text="Save"
-                Clicked="saveButton_Clicked"/>
+                Clicked="SaveButton_Clicked"/>
         <Button x:Name="Delete"
                 Text="Delete"
                 Clicked="Delete_Clicked"/>
-        <Button x:Name="scannerButton"
-                Text="Scan item"
-                Clicked="scannerButton_Clicked"/>
     </StackLayout>
 </ContentPage>

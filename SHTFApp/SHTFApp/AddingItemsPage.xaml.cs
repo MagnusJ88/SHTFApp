@@ -3,30 +3,23 @@ using RestSharp;
 using SHTFApp.Classes;
 using SQLite;
 using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using OpenFoodFacts4Net.Json.Data;
-using Newtonsoft.Json.Linq;
-using System.Dynamic;
-using ZXing.Net.Mobile.Forms;
-using System.Threading.Tasks;
 using System.ComponentModel;
-using SHTFApp;
 
 namespace SHTFApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddingItemsPage : ContentPage, INotifyPropertyChanged
     {
-        INotificationManager notificationManager;
-        Item SelectedItem;
+        private INotificationManager notificationManager;
+        private Item SelectedItem;
 
         public static string _scannedBarcode;
         public static string ScannedBarcode
         {
-            get { return _scannedBarcode; }
-            set { _scannedBarcode = value; }
+            get => _scannedBarcode;
+            set => _scannedBarcode = value;
         }
         public AddingItemsPage()
         {
@@ -48,20 +41,18 @@ namespace SHTFApp
             nameEntry.Text = SelectedItem.Name;
             amountEntry.Text = SelectedItem.Amount.ToString();
             expirePicker.Date = SelectedItem.ExpirationDate.Date;
-            energyEntry.Text = selectedItem.Energy.ToString();
-            quantityEntry.Text = selectedItem.Quantity.ToString();
+            energyEntry.Text = SelectedItem.Energy.ToString();
+            quantityEntry.Text = SelectedItem.Quantity.ToString();
 
-           
             notificationManager = DependencyService.Get<INotificationManager>();
             notificationManager.NotificationReceived += (sender, eventArgs) =>
             {
                 var evtData = (NotificationEventArgs)eventArgs;
                 ShowNotification(evtData.Title, evtData.Message);
             };
-
         }
 
-        private void saveButton_Clicked(object sender, EventArgs e)
+        private void SaveButton_Clicked(object sender, EventArgs e)
         {
             if (SelectedItem == null)
             {
@@ -72,7 +63,6 @@ namespace SHTFApp
                     ExpirationDate = expirePicker.Date,
                     Energy = Convert.ToInt32(energyEntry.Text),
                     Quantity = Convert.ToInt32(quantityEntry.Text)
-                    
                 };
 
                 using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
@@ -86,7 +76,6 @@ namespace SHTFApp
                 string title = $"Expired items!";
                 string message = $"You have expired items in your inventory";
                 notificationManager.SendNotification(title, message, expirePicker.Date);
-
             }
             else
             {
@@ -106,8 +95,6 @@ namespace SHTFApp
             }
             Navigation.PopAsync();
         }
-
-
         private void Delete_Clicked(object sender, EventArgs e)
         {
             try
@@ -128,20 +115,27 @@ namespace SHTFApp
                 Navigation.PopAsync();
             }
         }
-
-        private void scannerButton_Clicked(object sender, EventArgs e)
+        private void SearchButton_Clicked(object sender, EventArgs e)
         {
-            var scanPage = new ScanPage();
+           /*var scanPage = new ScanPage();
             scanPage.SetBarcode += this.OnBarcodeScanned;
-            Navigation.PushAsync(scanPage);
+            Navigation.PushAsync(scanPage);*/
+
+            GetNutriments(eanEntry.Text);
         }
         public void OnBarcodeScanned(object source, EventArgs e)
         {
             if (_scannedBarcode != null)
             {
                 eanEntry.Text = _scannedBarcode;
-                getNutriments(_scannedBarcode);
+                GetNutriments(_scannedBarcode);
             }
+        }
+        private void ImageButtonScan_Clicked(object sender, EventArgs e)
+        {
+            var scanPage = new ScanPage();
+            scanPage.SetBarcode += this.OnBarcodeScanned;
+            Navigation.PushAsync(scanPage);
         }
         void ShowNotification(string title, string message)
         {
@@ -165,7 +159,7 @@ namespace SHTFApp
                 DisplayAlert("Not Saved", "The item has not been saved", "Ok");
             }
         }
-        public void getNutriments(string barcode)
+        public void GetNutriments(string barcode)
         {
             var client = new RestClient($"https://sv.openfoodfacts.org/api/v0/product/" + barcode)
             {
@@ -179,9 +173,9 @@ namespace SHTFApp
             {
                 dynamic newProduct = JsonConvert.DeserializeObject(restResponse.Content);
 
-                int energy = newProduct["product"]["nutriments"]["energy_value"];
-                int quantity = newProduct["product"]["product_quantity"];
-                string name = newProduct["product"]["product_name"];
+                int energy = newProduct["product"]["nutriments"]["energy-kcal"] ?? 0;
+                int quantity = newProduct["product"]["product_quantity"] ?? 0;
+                string name = newProduct["product"]["product_name"] ?? "Not found";
 
                 quantityEntry.Text = quantity.ToString();
                 nameEntry.Text = name;
@@ -189,16 +183,9 @@ namespace SHTFApp
             }
             catch
             {
-                DisplayAlert("Not found!", "The product was not found in the database! You have to add it manually", "OK");
+                DisplayAlert("Not found!", "The product was not found in the database! Add the values manually.", "OK");
                 nameEntry.Focus();
             }
-        }
-
-        private void ImageButtonScan_Clicked(object sender, EventArgs e)
-        {
-            var scanPage = new ScanPage();
-            scanPage.SetBarcode += this.OnBarcodeScanned;
-            Navigation.PushAsync(scanPage);
         }
     }
 }

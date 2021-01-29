@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using SQLite;
 using SHTFApp.Classes;
-using System.Collections.ObjectModel;
 
 namespace SHTFApp
 {
@@ -19,6 +15,7 @@ namespace SHTFApp
         public MainPage()
         {
             InitializeComponent();
+
         }
         protected override void OnAppearing()
         {
@@ -46,9 +43,15 @@ namespace SHTFApp
             }
         }
 
-        private void summary_Clicked(object sender, EventArgs e)
+        private void Summary_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new calculate());
+            Navigation.PushAsync(new Calculate());
+        }
+
+        private void MenuItem_Clicked(object sender, EventArgs e)
+        {
+            var mi = ((MenuItem)sender);
+            DisplayAlert("Delete Context Action", mi.CommandParameter + " delete context action", "OK");
         }
     }
 }

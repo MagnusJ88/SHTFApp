@@ -9,8 +9,7 @@
                                     OnScanResult="ZXingScannerView_OnScanResult"
                                     WidthRequest="200"
                                     HeightRequest="200"
-                                    IsScanning="True"
-                                    />
+                                    IsScanning="True"/>
             <zxing:ZXingDefaultOverlay TopText="Align the barcode within the frame"/>
         </Grid>
     </ContentPage.Content>

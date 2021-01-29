@@ -20,10 +20,7 @@ namespace SHTFApp
 
         protected virtual void OnBarcodeScanned()
         {
-            if  (SetBarcode != null)
-            {
-                SetBarcode(this, EventArgs.Empty);
-            }
+            SetBarcode?.Invoke(this, EventArgs.Empty);
         }
         public void ZXingScannerView_OnScanResult(ZXing.Result result)
         {
@@ -35,7 +32,6 @@ namespace SHTFApp
                 OnBarcodeScanned();
                 await Navigation.PopAsync();
             });
-
 
         }
     }

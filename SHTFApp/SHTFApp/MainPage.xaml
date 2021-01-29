@@ -4,6 +4,7 @@
              xmlns:xct ="http://xamarin.com/schemas/2020/toolkit"
              x:Class="SHTFApp.MainPage"
              xmlns:local="clr-namespace:SHTFApp.Classes"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}"
              Title="Your inventory">
     <ContentPage.Resources>
@@ -13,8 +14,9 @@
         <ToolbarItem x:Name="AddItems"
                      Text="Add"
                      Clicked="AddItems_Clicked"/>
-        <ToolbarItem x:Name="summary" Text="Summary" Clicked="summary_Clicked"/>
+        <ToolbarItem x:Name="summary" Text="Summary" Clicked="Summary_Clicked"/>
     </ContentPage.ToolbarItems>
+
     <ContentPage.Content >
         <ListView x:Name="itemsListView"
                   ItemSelected="ItemsListView_ItemSelected"
