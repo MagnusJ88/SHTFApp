@@ -58,7 +58,7 @@ namespace SHTFApp
             }
             double days = totalCalories / totalEnergySpent;
 
-            summaryLabel.Text = $"Your inventory contains a total of {totalCalories} calories. It will last for aprox {Math.Round(days)} days.";
+            summaryLabel.Text = $"Your inventory contains a total of {totalCalories} calories. It will last for aprox {Math.Floor(days)} days.";
 
         }
         private void CaloriesSpentCalculation()

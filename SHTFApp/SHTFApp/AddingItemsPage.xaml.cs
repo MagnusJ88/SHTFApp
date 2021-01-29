@@ -167,19 +167,19 @@ namespace SHTFApp
         }
         public void getNutriments(string barcode)
         {
-            var client = new RestClient($"https://world.openfoodfacts.org/api/v0/product/" + barcode)
+            var client = new RestClient($"https://sv.openfoodfacts.org/api/v0/product/" + barcode)
             {
                 Timeout = -1
             };
             var request = new RestRequest(Method.GET);
-            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddHeader("SHTFApp", Xamarin.Essentials.VersionTracking.CurrentVersion/*"Content-Type", "application/x-www-form-urlencoded"*/);
             IRestResponse restResponse = client.Execute(request);
 
             try
             {
                 dynamic newProduct = JsonConvert.DeserializeObject(restResponse.Content);
 
-                int energy = newProduct["product"]["nutriments"]["energy-kcal"];
+                int energy = newProduct["product"]["nutriments"]["energy_value"];
                 int quantity = newProduct["product"]["product_quantity"];
                 string name = newProduct["product"]["product_name"];
 

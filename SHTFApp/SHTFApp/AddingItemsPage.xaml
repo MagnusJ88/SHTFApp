@@ -12,7 +12,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <Entry x:Name="nameEntry" 
                Placeholder="Name"
                TextColor="{AppThemeBinding Dark=White, Default=Black}"
@@ -29,29 +31,83 @@
                          Grid.ColumnSpan="1"
                          Padding="1"
                          HorizontalOptions="End"
-                         Clicked="ImageButtonScan_Clicked"/>
+                         Clicked="ImageButtonScan_Clicked"
+                         />
+            <Entry x:Name="amountEntry"
+                   Placeholder="Amount"
+                   Keyboard="Numeric"
+                   TextColor="{AppThemeBinding Dark=White, Default=Black}"
+                   Grid.Row="1" 
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   />
+            <Label Text="Amount"
+                   FontAttributes="Bold"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Grid.ColumnSpan="1"
+                   Padding="4"
+                   />
+            <Entry x:Name="energyEntry"
+                   Placeholder="Energy (kcal)"
+                   Keyboard="Numeric"
+                   TextColor="{AppThemeBinding Dark=White, Default=Black}" 
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   />
+            <Label Text="Energy (kcal)"
+                   FontAttributes="Bold"
+                   Grid.Row="2"
+                   Grid.Column="1"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Grid.ColumnSpan="1"
+                   Padding="4"
+                   />
+            <Entry x:Name="quantityEntry"
+                   Placeholder="Quantity (g/ml)"
+                   Keyboard="Numeric"
+                   TextColor="{AppThemeBinding Dark=White, Default=Black}"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"/>
+            <Label Text="Quantity (g/ml)"
+                   FontAttributes="Bold"
+                   Grid.Row="3"
+                   Grid.Column="1"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Grid.ColumnSpan="1"
+                   Padding="4"
+                   />
+            <DatePicker x:Name="expirePicker"
+                    Format="yyyy-MM-dd"
+                    Visual="Material"
+                    BackgroundColor="{AppThemeBinding Dark=Black, Default=White}"
+                    TextColor="{AppThemeBinding Dark=White, Default=Black}"
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                   />
+            <Label Text="Expiry Date"
+                   FontAttributes="Bold"
+                   Grid.Row="4"
+                   Grid.Column="1"
+                   HorizontalOptions="End"
+                   VerticalOptions="End"
+                   Grid.ColumnSpan="1"
+                   Padding="4"
+                   
+                   />
+
         </Grid>
-        <Entry x:Name="amountEntry"
-               Placeholder="Amount"
-               Keyboard="Numeric"
-               TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
-        <Entry x:Name="energyEntry"
-               Placeholder="Energy (kcal)"
-               Keyboard="Numeric"
-               TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
-        <Entry x:Name="quantityEntry"
-               Placeholder="Quantity (g/ml)"
-               Keyboard="Numeric"
-               TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
         <Entry x:Name="eanEntry"
                Placeholder="EAN"
                Keyboard="Numeric"
                TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
-        <DatePicker x:Name="expirePicker"
-                Format="yyyy-MM-dd"
-                Visual="Material"
-                BackgroundColor="{AppThemeBinding Dark=Black, Default=White}"
-                TextColor="{AppThemeBinding Dark=White, Default=Black}"/>
         <Button x:Name="saveButton"
                 Text="Save"
                 Clicked="saveButton_Clicked"/>
