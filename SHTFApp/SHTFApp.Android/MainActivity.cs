@@ -11,8 +11,8 @@ using Xamarin.Forms;
 
 namespace SHTFApp.Droid
 {
-    [Activity(Label = "SHTFApp", 
-        Icon = "@mipmap/icon", 
+    [Activity(Label = "SHTF", 
+        Icon = "@mipmap/launcher_foreground", //"@mipmap/icon", 
         Theme = "@style/MainTheme", 
         MainLauncher = true,
         LaunchMode = LaunchMode.SingleTop,
@@ -21,6 +21,7 @@ namespace SHTFApp.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzkyOTg3QDMxMzgyZTM0MmUzMFFjOXUyWHJmZXpXNmJoZDFZN1BCVENIeXJJSDNFODRBdDN0OGMwd0xoTGM9");
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -50,7 +51,7 @@ namespace SHTFApp.Droid
         protected override void OnNewIntent(Intent intent)
         {
             CreateNotificationFromIntent(intent);
-            //base.OnNewIntent(intent);
+            base.OnNewIntent(intent);
         }
 
         void CreateNotificationFromIntent(Intent intent)

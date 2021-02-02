@@ -10,6 +10,7 @@ namespace SHTFApp
         public static string DatabaseLocation;
         public App()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzkyOTg3QDMxMzgyZTM0MmUzMFFjOXUyWHJmZXpXNmJoZDFZN1BCVENIeXJJSDNFODRBdDN0OGMwd0xoTGM9");
             InitializeComponent();
 
             DependencyService.Get<INotificationManager>().Initialize();

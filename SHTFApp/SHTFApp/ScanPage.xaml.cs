@@ -22,17 +22,15 @@ namespace SHTFApp
         {
             SetBarcode?.Invoke(this, EventArgs.Empty);
         }
+
         public void ZXingScannerView_OnScanResult(ZXing.Result result)
         {
-
             Device.BeginInvokeOnMainThread(async () =>
             {
                 AddingItemsPage._scannedBarcode = result.Text;
-                await DisplayAlert("Scan result", result.Text, "OK");
                 OnBarcodeScanned();
                 await Navigation.PopAsync();
             });
-
         }
     }
 }
