@@ -15,7 +15,7 @@ namespace SHTFApp
         public MainPage()
         {
             InitializeComponent();
-            
+
 
         }
         protected override void OnAppearing()
@@ -27,9 +27,13 @@ namespace SHTFApp
                 Items = new List<Item>(connection.Table<Item>());
                 //itemsListView.ItemsSource = Items.OrderBy(item => item.ExpirationDate.Date);
                 SfitemsListView.ItemsSource = Items.OrderBy(item => item.ExpirationDate.Date);
-             
+
             }
+
         }
+
+
+
 
         private void AddItems_Clicked(object sender, EventArgs e)
         {
@@ -60,7 +64,7 @@ namespace SHTFApp
 
         private void SfitemsListView_ItemTapped(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
-           
+
         }
 
         private void SfitemsListView_SelectionChanged(object sender, Syncfusion.ListView.XForms.ItemSelectionChangedEventArgs e)
@@ -73,3 +77,5 @@ namespace SHTFApp
         }
     }
 }
+
+
