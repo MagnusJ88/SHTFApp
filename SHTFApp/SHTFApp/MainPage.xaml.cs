@@ -25,11 +25,8 @@ namespace SHTFApp
             {
                 connection.CreateTable<Item>();
                 Items = new List<Item>(connection.Table<Item>());
-                //itemsListView.ItemsSource = Items.OrderBy(item => item.ExpirationDate.Date);
                 SfitemsListView.ItemsSource = Items.OrderBy(item => item.ExpirationDate.Date);
-
             }
-
         }
 
 
@@ -42,9 +39,6 @@ namespace SHTFApp
 
         private void ItemsListView_ItemSelected(object sender, EventArgs e)
         {
-            //SelectedItem = (Item)itemsListView.SelectedItem;
-
-
             if (SelectedItem != null)
             {
                 Navigation.PushAsync(new AddingItemsPage(SelectedItem));
@@ -60,11 +54,6 @@ namespace SHTFApp
         {
             var mi = ((MenuItem)sender);
             DisplayAlert("Delete Context Action", mi.CommandParameter + " delete context action", "OK");
-        }
-
-        private void SfitemsListView_ItemTapped(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
-        {
-
         }
 
         private void SfitemsListView_SelectionChanged(object sender, Syncfusion.ListView.XForms.ItemSelectionChangedEventArgs e)

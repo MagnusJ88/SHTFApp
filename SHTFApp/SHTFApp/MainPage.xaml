@@ -33,49 +33,40 @@
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="5">
                             <Label Text="Amount" HorizontalOptions="Start" LineBreakMode="NoWrap"/>
-                            <!--<Label Text="Your items" HorizontalOptions="CenterAndExpand"
-                                   LineBreakMode="NoWrap"/>-->
                             <Label Text="Expiration date" HorizontalOptions="EndAndExpand" LineBreakMode="NoWrap"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </syncfusion:SfListView.HeaderTemplate>
+            
             <syncfusion:SfListView.ItemTemplate>
                 <DataTemplate>
-                            <Frame x:Name="frame" CornerRadius="10" HasShadow="True" Margin="1"
+                    <Frame x:Name="frame" CornerRadius="10" HasShadow="True" Margin="1"
                    BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}" Padding="7" VerticalOptions="CenterAndExpand">
-                                <!--<ViewCell >-->
-                                <!--<Frame CornerRadius="5" Margin="2.5" 
-                               HasShadow="True"
-                               BackgroundColor="{AppThemeBinding Dark=Gray, Default=White}" >-->
-
-                                <StackLayout Orientation="Horizontal"
+                        <StackLayout Orientation="Horizontal"
                                          HorizontalOptions="Fill">
-                                    <Label Text="{Binding Amount}"
+                            <Label Text="{Binding Amount}"
                                        FontSize="Medium"
                                        HorizontalOptions="StartAndExpand"
                                        MinimumWidthRequest="100"
                                        TextColor="{AppThemeBinding Dark=White, Default=Black}" />
-                                    <Label Text="{Binding Name}"
+                            <Label Text="{Binding Name}"
                                        FontAttributes="Bold"
                                        FontSize="Medium"
                                        TextColor="{AppThemeBinding Dark=White, Default=Black}"
                                        LineBreakMode="TailTruncation"
                                        HorizontalOptions="Center"/>
-                                    <Label Text="{Binding ExpirationDate.Date, 
+                            <Label Text="{Binding ExpirationDate.Date, 
                                        StringFormat='{0:yyyy-MM-dd}'}"
                                        TextColor="{Binding ExpirationDate.Date, 
                                            Converter={StaticResource TextColorConverter}}"
                                        FontSize="Medium"
                                        HorizontalOptions="EndAndExpand"
                                        MinimumWidthRequest="100"/>
-                                </StackLayout>
-                                <!--</Frame>-->
-                            </Frame>
-
-                        </DataTemplate>
-         
-                    </syncfusion:SfListView.ItemTemplate>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
         </syncfusion:SfListView>
     </ContentPage.Content>
 </ContentPage>

@@ -101,7 +101,6 @@ namespace SHTFApp
             {
                 using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
                 {
-                    //conn.CreateTable<Item>();
                     int rowsAdded = conn.Delete(SelectedItem);
                     DisplayAlert("Deleted", "The item has been deleted", "Ok");
                 }
@@ -117,10 +116,6 @@ namespace SHTFApp
         }
         private void SearchButton_Clicked(object sender, EventArgs e)
         {
-           /*var scanPage = new ScanPage();
-            scanPage.SetBarcode += this.OnBarcodeScanned;
-            Navigation.PushAsync(scanPage);*/
-
             GetNutriments(eanEntry.Text);
         }
         public void OnBarcodeScanned(object source, EventArgs e)

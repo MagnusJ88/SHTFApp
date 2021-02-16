@@ -12,7 +12,7 @@ using Xamarin.Forms;
 namespace SHTFApp.Droid
 {
     [Activity(Label = "SHTF", 
-        Icon = "@mipmap/launcher_foreground", //"@mipmap/icon", 
+        Icon = "@mipmap/launcher_foreground",
         Theme = "@style/MainTheme", 
         MainLauncher = true,
         LaunchMode = LaunchMode.SingleTop,
