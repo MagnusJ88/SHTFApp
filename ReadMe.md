@@ -1,6 +1,6 @@
 Our SHTF Android app!
 
-The app keeps track of your emergency inventory, such as: Expiration date, energy value and amount.
+This app keeps track of your emergency inventory, in regards to amount, expiration date and energy value.
 
 Items can be added to your inventory manually or via the built in barcode scanner.
 The app is connected to the Open Food Facts API.
