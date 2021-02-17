@@ -1,7 +1,10 @@
 SHTF(ShitHitsTheFan) Android app!
 
-The app keeps track on your emergency inventory such as: Expiration date, energy value and amount.
+The app keeps track of your emergency inventory, such as: Expiration date, energy value and amount.
 
-You can manually add items to your inventory or use the built in barcode scanner which are connected to openfoodfacts.com database.
+Items can be added to your inventory manually or via the built in barcode scanner.
+The app is connected to the Open Food Facts API.
 
-You can calculate how long your inventory would last based on energy value.
+You can calculate how long your inventory will last based on energy value.
+
+Developed by Christopher Solum Faeste and Magnus Johansson, February 2021.
